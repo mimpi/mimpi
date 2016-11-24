@@ -1,0 +1,3 @@
+env NS_PORT=6500 _PROC_ID=0 _N_PROCS=2 /a/incw2/home2/fperez/FELIX/XMP/xmp/test/mpi/partest_p/partest.sp2.xmp
+env NS_PORT=6500 _PROC_ID=1 _N_PROCS=2 /a/incw2/home2/fperez/FELIX/XMP/xmp/test/mpi/partest_p/partest.sp2.xmp
+env NS_PORT=6500 _PROC_ID=3 _N_PROCS=2 /a/incw2/home2/fperez/FELIX/XMP/xmp/util/ns.exe

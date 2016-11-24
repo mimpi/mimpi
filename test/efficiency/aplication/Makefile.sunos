@@ -1,0 +1,44 @@
+# ------------------------------ MAKEFILE ----------------------- 
+
+
+
+# --- 1.- Operating system options ---
+
+MAKE          = make
+SRCDIR        = .
+DIR           = partest_s  partest_p
+
+
+
+# --- 2.- Libraries profiles -------
+
+
+
+# --- 3.- Compilation rules -------
+
+all:    init  compo
+fast:         compo
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    tests" 
+	@echo "   -------" 
+	@echo "" 
+
+compo:
+	@set -e;  for i in $(DIR);  do cd $$i; $(MAKE) -f Makefile.sunos fast; cd ..; done
+
+
+
+clean: 
+	@echo "   Removing trash..."
+	@set -e;  for i in $(DIR);  do cd $$i; $(MAKE) -f Makefile.sunos clean; cd ..; done
+	@echo "   Trash succesfully removed !."
+
+
+
+# ----------------------------- END MAKEFILE -------------------- 
+

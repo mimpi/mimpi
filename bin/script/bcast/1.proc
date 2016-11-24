@@ -1,0 +1,5 @@
+env NS_PORT=7500 _N_PROCS=4 _PROC_ID=0 ./bcast.sp2.xmp &
+env NS_PORT=7500 _N_PROCS=4 _PROC_ID=1 ./bcast.sp2.xmp &
+env NS_PORT=7500 _N_PROCS=4 _PROC_ID=2 ./bcast.sp2.xmp &
+env NS_PORT=7500 _N_PROCS=4 _PROC_ID=3 ./bcast.sp2.xmp &
+env NS_PORT=7500 _N_PROCS=4 _PROC_ID=4 /u/fperez/XMP/MiMPI/bin/ns.exe

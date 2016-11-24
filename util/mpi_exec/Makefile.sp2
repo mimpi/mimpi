@@ -1,0 +1,82 @@
+#---------------------- mpi_exec MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SP2
+#-----------------------
+ 
+CC            = cc_r
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+CFLAGS        = -g -I./ -I../../src/  -D__SP2__
+LIBLINK       = ../../lib/libmpi.a
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/l_mpi_exec/l_runner_lib.o   \
+            $(SOURCE_PATH)/l_mpi_exec/l_sh_xmp.o       \
+            $(SOURCE_PATH)/l_mpi_exec/l_rsh_xmp.o      \
+            $(SOURCE_PATH)/l_mpi_exec/l_mpirun_mpich.o \
+            $(SOURCE_PATH)/l_mpi_exec/l_xmprun_xmp.o   \
+            $(SOURCE_PATH)/l_mpi_exec/l_poe_nmpi.o     \
+            $(SOURCE_PATH)/l_mpi_exec/l_poe_xmp.o      \
+            $(SOURCE_PATH)/l_mpi_exec/l_poe_mpich.o    \
+            $(SOURCE_PATH)/l_mpi_exec.o                \
+            $(SOURCE_PATH)/mpi_exec.o
+
+
+EXE_NAME  = \
+            mpi_exec.exe
+EXE_PATH  = \
+            $(SOURCE_PATH)/../../bin/
+
+
+
+#--------------------------
+# Reglas de compilacion ...
+#--------------------------
+
+all:     init   mpi_exec
+refast:  clean  mpi_exec
+fast:           mpi_exec
+
+
+mpi_exec: $(OBJETOS)
+	@echo "   Building mpi_exec ..."
+	@$(CC)  $(CFLAGS) -o $(EXE_PATH)/$(EXE_NAME) *.o $(LIBLINK)
+ 
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    mpi_exec" 
+	@echo "   ----------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  $(EXE_PATH)/$(EXE_NAME)
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- mpi_exec MAKEFILE -------------------- 
+

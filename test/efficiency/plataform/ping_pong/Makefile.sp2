@@ -1,0 +1,68 @@
+#---------------------- ping' MAKEFILE -------------------- 
+ 
+
+# --- 1.- Opciones del sistema base ---
+
+CC            = cc_r
+CFLAGS        = -D_REENTRANT -DPOSIX_THREADS -D__SP2__ -D__SWITCH__  -D__AIX__ -I./
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+LIBLINK       =
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/client.o \
+            $(SOURCE_PATH)/server.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    ping
+refast: clean   ping
+fast:   ping
+
+ping: $(OBJETOS)
+	@echo "   Building ping :"
+	@echo "     client.exe ..."
+	@$(CC)  $(CFLAGS) -o client.exe client.o
+	@echo "     server.exe ..."
+	@$(CC)  $(CFLAGS) -o server.exe server.o
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    ping  " 
+	@echo "   ------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./*.exe 
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- ping' MAKEFILE -------------------- 
+

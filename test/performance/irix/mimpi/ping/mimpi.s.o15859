@@ -1,0 +1,34 @@
+Warning: no access to tty (Bad file number).
+Thus no job control in this shell.
+You have mail.
+running....
+
+
+  NodeServer
+ ------------
+
+   MiMPI.1.30.ns.web.17 (Oct  4 2001, 11:35:04)
+
+NS init  ...
+NS start ...
+len_bytes=1.000000e+00 avg_time_sec=6.527066e-04 rate_Mbytes_sec=3.064164e-03
+len_bytes=2.000000e+00 avg_time_sec=6.797075e-04 rate_Mbytes_sec=5.884884e-03
+len_bytes=4.000000e+00 avg_time_sec=6.212115e-04 rate_Mbytes_sec=1.287806e-02
+len_bytes=8.000000e+00 avg_time_sec=6.430030e-04 rate_Mbytes_sec=2.488324e-02
+len_bytes=1.600000e+01 avg_time_sec=6.234050e-04 rate_Mbytes_sec=5.133100e-02
+len_bytes=3.200000e+01 avg_time_sec=6.590962e-04 rate_Mbytes_sec=9.710266e-02
+len_bytes=6.400000e+01 avg_time_sec=2.010298e-03 rate_Mbytes_sec=6.367216e-02
+len_bytes=1.280000e+02 avg_time_sec=6.271839e-04 rate_Mbytes_sec=4.081737e-01
+len_bytes=2.560000e+02 avg_time_sec=6.949902e-04 rate_Mbytes_sec=7.367011e-01
+len_bytes=5.120000e+02 avg_time_sec=7.008910e-04 rate_Mbytes_sec=1.460997e+00
+len_bytes=1.024000e+03 avg_time_sec=6.919265e-04 rate_Mbytes_sec=2.959852e+00
+len_bytes=2.048000e+03 avg_time_sec=7.101059e-04 rate_Mbytes_sec=5.768154e+00
+len_bytes=4.096000e+03 avg_time_sec=7.876158e-04 rate_Mbytes_sec=1.040101e+01
+len_bytes=8.192000e+03 avg_time_sec=1.903117e-03 rate_Mbytes_sec=8.609036e+00
+len_bytes=1.638400e+04 avg_time_sec=2.193403e-03 rate_Mbytes_sec=1.493934e+01
+len_bytes=3.276800e+04 avg_time_sec=3.763819e-03 rate_Mbytes_sec=1.741210e+01
+len_bytes=6.553600e+04 avg_time_sec=5.844998e-03 rate_Mbytes_sec=2.242464e+01
+len_bytes=1.310720e+05 avg_time_sec=9.772897e-03 rate_Mbytes_sec=2.682357e+01
+len_bytes=2.621440e+05 avg_time_sec=1.889851e-02 rate_Mbytes_sec=2.774229e+01
+len_bytes=5.242880e+05 avg_time_sec=4.237498e-02 rate_Mbytes_sec=2.474517e+01
+len_bytes=1.048576e+06 avg_time_sec=6.762999e-02 rate_Mbytes_sec=3.100920e+01

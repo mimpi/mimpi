@@ -1,0 +1,48 @@
+config:
+	@echo; echo "Please use one of the following targets:"; echo; \
+	echo "	alpha-mpich"; \
+	echo "	e10000"; \
+	echo "	t3e"; \
+	echo "	o2000"; \
+	echo "	sp-p2"; \
+	echo "	sp-ppc"; \
+	echo "	solaris-mpich"; \
+	echo "	sunos-mpich"; \
+	echo "	linux-mpich"; \
+	echo "	linux-lam"; \
+	echo "	reconfig (to bring this menu up again)"; \
+	echo ""; \
+
+e10000:
+	@rm -f sys.def
+	ln -s conf/sys.e10000 sys.def
+alpha-mpich:
+	@rm -f sys.def
+	ln -s conf/sys.alpha-mpich sys.def
+solaris-mpich:
+	@rm -f sys.def
+	ln -s conf/sys.solaris sys.def
+sun-mpich:
+	@rm -f sys.def
+	ln -s conf/sys.sunos sys.def
+o2k sgi-o2k:
+	@rm -f sys.def
+	ln -s conf/sys.o2k sys.def
+sp-p2 pow2 ibm-pow2:
+	@rm -f sys.def
+	ln -s conf/sys.pow2 sys.def
+sp-ppc ppc ibm-ppc:
+	@rm -f sys.def
+	ln -s conf/sys.ppc sys.def
+linux-mpich:
+	@rm -f sys.def
+	ln -s conf/sys.linux-mpich sys.def
+linux-lam:
+	@rm -f sys.def
+	ln -s conf/sys.linux-lam sys.def
+alpha:
+	@rm -f sys.def
+	ln -s conf/sys.alpha sys.def
+t3e:
+	@rm -f sys.def
+	ln -s conf/sys.t3e sys.def

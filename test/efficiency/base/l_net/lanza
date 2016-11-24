@@ -1,0 +1,5 @@
+#!/bin/tcsh
+
+cd /user1/uni/uc3m/mimpi/SRC/MiMPI.31/test/efficiency/base/l_net
+./server.exe 1000
+./client.exe

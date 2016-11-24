@@ -1,0 +1,25 @@
+Warning: no access to tty (Bad file number).
+Thus no job control in this shell.
+You have mail.
+running....
+len_bytes=1.000000e+00 avg_time_sec=3.664000e-05 rate_Mbytes_sec=5.458515e-02
+len_bytes=2.000000e+00 avg_time_sec=3.511999e-05 rate_Mbytes_sec=1.138953e-01
+len_bytes=4.000000e+00 avg_time_sec=3.536004e-05 rate_Mbytes_sec=2.262441e-01
+len_bytes=8.000000e+00 avg_time_sec=3.528004e-05 rate_Mbytes_sec=4.535143e-01
+len_bytes=1.600000e+01 avg_time_sec=3.527999e-05 rate_Mbytes_sec=9.070298e-01
+len_bytes=3.200000e+01 avg_time_sec=3.599999e-05 rate_Mbytes_sec=1.777778e+00
+len_bytes=6.400000e+01 avg_time_sec=3.856001e-05 rate_Mbytes_sec=3.319501e+00
+len_bytes=1.280000e+02 avg_time_sec=5.864003e-05 rate_Mbytes_sec=4.365619e+00
+len_bytes=2.560000e+02 avg_time_sec=6.503998e-05 rate_Mbytes_sec=7.872081e+00
+len_bytes=5.120000e+02 avg_time_sec=7.040002e-05 rate_Mbytes_sec=1.454545e+01
+len_bytes=1.024000e+03 avg_time_sec=7.855999e-05 rate_Mbytes_sec=2.606925e+01
+len_bytes=2.048000e+03 avg_time_sec=1.002400e-04 rate_Mbytes_sec=4.086194e+01
+len_bytes=4.096000e+03 avg_time_sec=2.033600e-04 rate_Mbytes_sec=4.028324e+01
+len_bytes=8.192000e+03 avg_time_sec=3.751200e-04 rate_Mbytes_sec=4.367669e+01
+len_bytes=1.638400e+04 avg_time_sec=4.993600e-04 rate_Mbytes_sec=6.562000e+01
+len_bytes=3.276800e+04 avg_time_sec=8.334400e-04 rate_Mbytes_sec=7.863313e+01
+len_bytes=6.553600e+04 avg_time_sec=2.067760e-03 rate_Mbytes_sec=6.338840e+01
+len_bytes=1.310720e+05 avg_time_sec=3.157760e-03 rate_Mbytes_sec=8.301581e+01
+len_bytes=2.621440e+05 avg_time_sec=6.083040e-03 rate_Mbytes_sec=8.618848e+01
+len_bytes=5.242880e+05 avg_time_sec=1.853280e-02 rate_Mbytes_sec=5.657947e+01
+len_bytes=1.048576e+06 avg_time_sec=3.303048e-02 rate_Mbytes_sec=6.349142e+01

@@ -1,0 +1,50 @@
+# ........................................................................
+#
+#  fgarcia,acaldero@hinojo.datsi.fi.upm.es
+#
+# ........................................................................
+
+
+
+#--------------------------
+# 1.- Native configuration
+#--------------------------
+
+MAKE          = make
+SRCDIR        = .
+DIR           = src_EXTERN  src  util  example
+
+
+#--------------------------
+# 2.- library object
+#--------------------------
+
+
+
+#--------------------------
+# 3.- compilation rules
+#--------------------------
+
+all:     init  object
+fast:          object
+
+
+init:
+	@echo [2J
+	@echo "[1;1f"
+	@echo "" 
+	@echo "    MiMPI" 
+	@echo "   -------"
+	@echo "" 
+
+object:
+	@set -e;  for i in $(DIR);   do cd $$i; $(MAKE) -f Makefile.sunos fast; cd ..; done
+
+clean: 
+	@echo "   Removing trash..."
+	@set -e;  for i in $(DIR);   do cd $$i; $(MAKE) -f Makefile.sunos clean; cd ..; done
+	@echo "   Trash succesfully removed !."
+
+
+# ........................................................................
+

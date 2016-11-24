@@ -1,0 +1,23 @@
+# Linux-mpich sys.def
+
+# Blasbench values
+
+BB_CC		= gcc
+BB_CFLAGS	= -g  -Wall -DREGISTER -DHAVE_CONFIG_H -D__LINUX__ -D_REENTRANT -DPOSIX_THREADS
+BB_LIBS		= -lblas -lf2c -lm
+
+# Cachebench values
+
+CB_CC		= $(BB_CC)
+CB_CFLAGS	= $(BB_CFLAGS)
+
+# MPbench values
+
+MP_MPI_CC	= $(BB_CC)
+MP_CFLAGS	= $(BB_CFLAGS) -DINLINE
+MPICH_ROOT	= /disks/a01-unix.h/users.alumnos-98-99/opa/MiMPI
+MPI_INC		= -I$(MPICH_ROOT)/include -I$(MPICH_ROOT)/src -I./ 
+MPI_LIBS	= -L$(MPICH_ROOT)/lib -lmpi -L/usr/lib -llzrw3 -llzo -lz -lpthread
+MPIRUNCMD	= mpirun-mimpi
+MPIRUNPROCS	= -np
+MPIRUNPOSTOPTS	= mpi_bench

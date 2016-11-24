@@ -1,0 +1,78 @@
+#---------------------- mpi_start MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+CC            = gcc
+LIB_PATH      = -L/usr/lib
+INCLUDE_PATH  = -I./ -I./../../src/ -I./../../include
+SOURCE_PATH   = .
+CFLAGS        = -g -Wall -D__SUNOS__ -D_REENTRANT -DPOSIX_THREADS -DSOLARIS
+LIBLINK       = ../../lib/libmpi.a -lpthread -lsocket -lnsl -lposix4
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/l_mpi_start/l_lib.o            \
+            $(SOURCE_PATH)/l_mpi_start/l_runner.o         \
+            $(SOURCE_PATH)/l_mpi_start/l_nnodes.o         \
+            $(SOURCE_PATH)/l_mpi_start/l_basebin.o        \
+            $(SOURCE_PATH)/l_mpi_start/l_progname.o       \
+            $(SOURCE_PATH)/l_mpi_start/l_initialdir.o     \
+            $(SOURCE_PATH)/l_mpi_start/l_usermail.o       \
+            $(SOURCE_PATH)/l_mpi_start.o                  \
+            $(SOURCE_PATH)/mpi_start.o
+
+
+EXE_NAME       = \
+            mpi_start.exe
+EXE_PATH       = \
+            $(SOURCE_PATH)/../../bin/
+ 
+ 
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+ 
+all:     init   mpi_start 
+refast:  clean  mpi_start
+fast:           mpi_start
+
+
+mpi_start: $(OBJETOS)
+	@echo "   Building mpi_start ..."
+	@$(CC)  $(CFLAGS) -o $(EXE_PATH)/$(EXE_NAME)  $(OBJETOS) $(LIBLINK)
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    mpi_start" 
+	@echo "   -----------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  $(EXE_PATH)/$(EXE_NAME)
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- mpi_start MAKEFILE -------------------- 
+

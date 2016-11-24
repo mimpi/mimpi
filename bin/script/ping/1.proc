@@ -1,0 +1,3 @@
+env NS_PORT=6500 _N_PROCS=2 _PROC_ID=0 ./ping.sp2.xmp &
+env NS_PORT=6500 _N_PROCS=2 _PROC_ID=1 ./ping.sp2.xmp &
+env NS_PORT=7500 _N_PROCS=2 _PROC_ID=2 /u/fperez/XMP/MiMPI/bin/ns.exe

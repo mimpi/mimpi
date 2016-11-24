@@ -1,0 +1,73 @@
+#---------------------- reduce' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SP2
+#-----------------------
+ 
+CC            = cc_r
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+CFLAGS        = -g -I./ -I./../../../../../../src/ -I./../../../../../../include/ -D__SP2__ 
+LIBLINK       = 
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+LIB_PATH  = ../../../../../../lib/
+LIBNAME   = libmpi.a
+OBJETOS   = \
+            $(SOURCE_PATH)/reduce.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    reduce
+refast: clean   reduce
+fast:   reduce
+
+reduce: $(OBJETOS)
+	@echo "   Building reduce :"
+	@echo "     reduce.sp2.xmp ..."
+	@$(CC)  $(CFLAGS) -o reduce.sp2.xmp $(OBJETOS) $(LIBLINK) $(LIB_PATH)/$(LIBNAME)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    reduce" 
+	@echo "   -------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  ./reduce.sp2.xmp
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- reduce' MAKEFILE -------------------- 
+

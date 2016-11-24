@@ -1,0 +1,71 @@
+#---------------------- lock' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SP2
+#-----------------------
+ 
+CC            = cc_r
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+CFLAGS        = -g -I./ -I./../../../../src/ -I./../../../../include/ -D__SP2__ 
+LIBLINK       = 
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/lock.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    lock
+refast: clean   lock
+fast:   lock
+
+lock: $(OBJETOS)
+	@echo "   Building lock :"
+	@echo "     lock.sp2 ..."
+	@$(CC)  $(CFLAGS) -o lock.sp2 $(OBJETOS) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    lock" 
+	@echo "   -----"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  ./lock.sp2
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- lock' MAKEFILE -------------------- 
+

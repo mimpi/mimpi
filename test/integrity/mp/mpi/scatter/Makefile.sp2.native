@@ -1,0 +1,71 @@
+#---------------------- scatter' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SP2
+#-----------------------
+ 
+CC            = mpcc
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+CFLAGS        = -g -I./ 
+LIBLINK       =
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/scatter.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    scatter
+refast: clean   scatter
+fast:   scatter
+
+scatter: $(OBJETOS)
+	@echo "   Building scatter :"
+	@echo "     scatter.sp2.native ..."
+	@$(CC)  $(CFLAGS) -o scatter.sp2.native $(OBJETOS) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    scatter" 
+	@echo "   ---------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./scatter.sp2.native
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- scatter' MAKEFILE -------------------- 
+

@@ -1,0 +1,135 @@
+
+
+ #ifndef I_THREAD_WIN32_M
+ #define I_THREAD_WIN32_M
+
+ #ifdef  __cplusplus
+    extern "C" {
+ #endif
+
+
+  /* ... Includes / Inclusiones ...............................*/
+
+      #include "base/l_basic/c_basic.h"
+      #include "base/l_string/x_string.h"
+
+
+  /* ... Inline / Macros ......................................*/
+
+#if defined(HAVE_WINDOWS_H)
+
+     #define  I_THREAD_WIN32_init(mtsda)                             \
+              {                                                      \
+                LPVOID lpMsgBuf ;                                    \
+                                                                     \
+                (mtsda)->ready   = FALSE ;                           \
+                (mtsda)->destroy = FALSE ;                           \
+                                                                     \
+                (mtsda)->mutex = CreateMutex(NULL,FALSE,NULL) ;      \
+                if ((mtsda)->mutex == NULL)                          \
+                    L_DEBUG_MSG_Write(DBG_INFO,FALSE,                \
+                                      "CreateMutex fail\n") ;        \
+                                                                     \
+                (mtsda)->event = CreateEvent(NULL,FALSE,TRUE,NULL) ; \
+                if ((mtsda)->event == NULL)                          \
+                    L_DEBUG_MSG_Write(DBG_INFO,FALSE,                \
+                                      "CreateEvent fail\n") ;        \
+              }
+
+     #define  I_THREAD_WIN32_destroy(mtsda)                          \
+              {                                                      \
+                int ret ;                                            \
+                                                                     \
+                (mtsda)->ready   = FALSE ;                           \
+                (mtsda)->destroy = TRUE ;                            \
+                PulseEvent(&((mtsda)->event)) ;                      \
+                                                                     \
+                ret = CloseHandle((mtsda)->event) ;                  \
+                if (ret == FALSE)                                    \
+                    L_DEBUG_MSG_Write(DBG_INFO,FALSE,                \
+                                      "locked condition\n") ;        \
+                                                                     \
+                ret = CloseHandle(&((mtsda)->mutex)) ;               \
+                if (ret == FALSE)                                    \
+                    L_DEBUG_MSG_Write(DBG_INFO,FALSE,                \
+                                      "Bad mutex\n") ;               \
+              }
+
+     #define  I_THREAD_WIN32_isDestroy(mtsda)                        \
+              (                                                      \
+                ((mtsda) == NULL) ?                                  \
+                (TRUE) :                                             \
+                ((mtsda)->destroy == TRUE)                           \
+              )
+
+     #define  I_THREAD_WIN32_lock(mtsda)                             \
+              {                                                      \
+                int ret ;                                            \
+                                                                     \
+                if ((mtsda)->destroy == FALSE)                       \
+                   {                                                 \
+                     ret = WaitForSingleObject((mtsda)->mutex,INFINITE) ; \
+                     if (ret == WAIT_FAILED)                             \
+                         L_DEBUG_MSG_Write(DBG_INFO,FALSE,           \
+                                           "Bad mutex\n") ;          \
+                   }                                                 \
+              }
+
+     #define  I_THREAD_WIN32_unlock(mtsda)                           \
+              {                                                      \
+                int ret ;                                            \
+                                                                     \
+                if ((mtsda)->destroy == FALSE)                       \
+                   {                                                 \
+                     ret = ReleaseMutex((mtsda)->mutex) ;            \
+                     if (ret == WAIT_FAILED)                         \
+                         L_DEBUG_MSG_Write(DBG_INFO,FALSE,           \
+                                           "Bad mutex\n") ;          \
+                   }                                                 \
+              }
+
+     #define  I_THREAD_WIN32_setNotReady(mtsda)                      \
+              (mtsda)->ready = FALSE ;
+
+     #define  I_THREAD_WIN32_setReady(mtsda)                         \
+              (mtsda)->ready = TRUE ;
+
+     #define  I_THREAD_WIN32_signalReady(mtsda)                      \
+              {                                                      \
+                (mtsda)->ready = TRUE ;                              \
+                SetEvent((mtsda)->event) ;                           \
+              }
+
+     #define  I_THREAD_WIN32_waitReady(mtsda)                        \
+              {                                                      \
+                HANDLE h[2] ;                                        \
+                                                                     \
+                h[0] = (mtsda)->mutex ;                              \
+                h[1] = (mtsda)->event ;                              \
+                                                                     \
+                while                                                \
+                (                                                    \
+                  ((mtsda)->ready == FALSE)                          \
+                             &&                                      \
+                  ((mtsda)->destroy == FALSE)                        \
+                )                                                    \
+                {                                                    \
+                                                                     \
+                  ReleaseMutex((mtsda)->mutex) ;                     \
+                  WaitForMultipleObjects(2,h,TRUE,INFINITE) ;        \
+                }                                                    \
+              }
+
+
+  /* ..........................................................*/
+
+
+#endif
+
+
+ #ifdef  __cplusplus
+    }
+ #endif
+
+#endif  /* I_THREAD_WIN32_M */
+

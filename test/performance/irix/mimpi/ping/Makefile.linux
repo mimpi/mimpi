@@ -1,0 +1,73 @@
+#---------------------- ping' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en LINUX
+#-----------------------
+ 
+CC             = gcc
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./ -I./../../../../../src/ -I./../../../../../include/
+SOURCE_PATH    =   .
+CFLAGS         = -g -Wall -D__LINUX__ -D_REENTRANT -DPOSIX_THREADS 
+LIBLINK        = -lpthread -lz ../../../../../lib/liblzrw3.a ../../../../../lib/liblzo.a
+
+
+# --- 2.- Perfil de la libreria -------
+
+LIB_PATH  = ../../../../../lib/
+LIBNAME   = libmpi.a
+OBJETOS   = \
+            $(SOURCE_PATH)/ping.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    ping
+refast: clean   ping
+fast:   ping
+
+ping: $(OBJETOS)
+	@echo "   Building ping :"
+	@echo "     ping.irix.xmp ..."
+	@$(CC)  $(CFLAGS) -o ping.irix.xmp $(OBJETOS) $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    ping  " 
+	@echo "   ------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./ping.irix.xmp
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- ping' MAKEFILE -------------------- 
+

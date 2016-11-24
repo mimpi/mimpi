@@ -1,0 +1,75 @@
+#---------------------- ping' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SP2
+#-----------------------
+ 
+CC            = cc_r
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   =   .
+CFLAGS        = -g -I./ -I./../../../../../src/ -I./../../../../../include/ -D__SP2__ 
+LIBLINK       = -lbsd
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+LIB_PATH  = ../../../../../lib/
+LIBNAME   = libmpi.a
+OBJETOS   = \
+            $(SOURCE_PATH)/test_buffers.o   \
+            $(SOURCE_PATH)/test_params.o    \
+            $(SOURCE_PATH)/ping.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    ping
+refast: clean   ping
+fast:   ping
+
+ping: $(OBJETOS)
+	@echo "   Building ping :"
+	@echo "     ping.sp2.xmp ..."
+	@$(CC)  $(CFLAGS) -o ping.sp2.xmp $(OBJETOS) $(LIBLINK) $(LIB_PATH)/$(LIBNAME)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    ping  " 
+	@echo "   ------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./ping.sp2.xmp
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- ping' MAKEFILE -------------------- 
+

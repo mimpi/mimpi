@@ -1,0 +1,33 @@
+#!/bin/sh
+#set -x 
+
+tam_maximo=65656
+peticion=1
+
+
+for Nservidores in 1 2 4 ; do
+    for Nclientes   in 1 2 4 8 ; do
+      while test $peticion -lt $tam_maximo 
+      do
+       	echo $Nservidores $Nclientes $peticion
+        Nnodos=`expr $Nclientes + $Nservidores`
+        rm -fr ./lanza.partest
+	echo "env SERVERS=$Nservidores CLIENTS=$Nclientes FILESIZE=10 ACCESSSIZE=$peticion mpirun -np $Nnodos ./partest"  > ./lanza.partest
+	chmod +x ./lanza.partest
+        ../../../util/test_run    -p ./lanza.partest -n 10 -d 60
+        ../../../util/test_reduce -p   lanza.partest -f 0  -l  9
+        mv lanza.partest.out.max    ./r/lanza.partest.max.$peticion.$j
+        mv lanza.partest.out.min    ./r/lanza.partest.min.$peticion.$j
+        mv lanza.partest.out.media  ./r/lanza.partest.media.$peticion.$j
+        rm -fr lanza.partest.out.*
+        echo "next petcicion..."; 
+        # incrementar petition
+        peticion=`expr $peticion \* 2`
+      done
+      echo "next client..."
+      peticion=1;
+    done
+    echo "next server..."; 
+done
+
+

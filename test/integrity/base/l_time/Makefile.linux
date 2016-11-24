@@ -1,0 +1,60 @@
+# ------------------------------ MAKEFILE -----------------------
+ 
+
+
+# --- 1.- Operating system options ---
+
+CC             = gcc
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./ -I../../../../src/ -I../../../../include
+SOURCE_PATH    = .
+CFLAGS         = -g -Wall  -D__LINUX__ -D__MEMORY_DEBUG__
+LIBLINK        = -lpthread
+
+
+
+# --- 2.- Libraries profiles -------
+
+LIB_PATH  = ../../../../lib/
+LIBNAME   = libmpi.a
+TEST_OBJ  = \
+            $(SOURCE_PATH)/x_time.o
+
+ 
+
+# --- 3.- Compilation rules -------
+
+all:    init  $(TEST_OBJ)  test
+fast:         $(TEST_OBJ)  test
+
+
+init:
+	@echo "" 
+	@echo "    test" 
+	@echo "   ------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+test:
+	@echo "   Building test :"
+	@echo "     x_time.exe ..."
+	@$(CC)  $(CFLAGS) -o ./x_time.exe x_time.o $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(TEST_OBJ) 
+	@rm -fr ./x_time.exe
+	@echo "   Trash succesfully removed !."
+
+
+
+# ------------------------------ MAKEFILE -----------------------
+

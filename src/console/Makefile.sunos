@@ -1,0 +1,64 @@
+# ........................................................................
+#
+#  fgarcia,acaldero@hinojo.datsi.fi.upm.es
+#
+# ........................................................................
+
+
+
+#--------------------------
+# 1.- Native configuration
+#--------------------------
+
+CC            = gcc
+LIB_PATH      = -L/usr/lib
+INCLUDE_PATH  = -I./ -I../ -I../../include
+SOURCE_PATH   = .
+CFLAGS        = -g -Wall -D__SUNOS__ -D_REENTRANT -DPOSIX_THREADS -DSOLARIS
+LIBLINK       = -lpthread -lsocket -lnsl -lposix4
+
+
+#--------------------------
+# 2.- library object
+#--------------------------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/l_condition_msg.o   \
+            $(SOURCE_PATH)/l_stack_msg.o       \
+            $(SOURCE_PATH)/l_trace_msg.o       \
+            $(SOURCE_PATH)/l_verbose_msg.o
+
+
+
+#--------------------------
+# 3.- compilation rules
+#--------------------------
+
+all:    init   $(OBJETOS)
+fast:          $(OBJETOS)
+
+
+init:
+	@echo "" 
+	@echo "    console" 
+	@echo "   ---------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) 
+	@echo "   Trash succesfully removed !."
+
+
+# ........................................................................
+

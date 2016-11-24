@@ -1,0 +1,73 @@
+#---------------------- bcast' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SP2
+#-----------------------
+
+MPICH_MPL_BIN=/prod/mpich/lib/rs6000/ch_mpl
+
+CC            = $(MPICH_MPL_BIN)/mpicc
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+CFLAGS        = -g -I./ 
+LIBLINK       =
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/bcast.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    bcast
+refast: clean   bcast
+fast:   bcast
+
+bcast: $(OBJETOS)
+	@echo "   Building bcast :"
+	@echo "     bcast.sp2.mpich ..."
+	@$(CC)  $(CFLAGS) -L$(LIB_PATH) -o bcast.sp2.mpich $(OBJETOS) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    bcast" 
+	@echo "   -------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./bcast.sp2.mpich
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- bcast' MAKEFILE -------------------- 
+

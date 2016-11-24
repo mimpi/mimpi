@@ -1,0 +1,5 @@
+env NS_PORT=7500 NS_HOST=localhost ./server.exe 1048576 &
+echo "sleep 1 seg..."
+sleep 1
+env NS_PORT=7500 NS_HOST=localhost ./client.exe 1048576
+

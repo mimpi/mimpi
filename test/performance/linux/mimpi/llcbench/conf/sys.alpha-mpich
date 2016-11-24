@@ -1,0 +1,27 @@
+# DEC UNIX sys.def
+
+# Blasbench values
+
+BB_CC		= cc
+BB_CFLAGS 	= -fast -arch host -tune host -DREGISTER -assume accuracy_sensitive -no_fp_reorder 
+# Linux Alpha Cross Compile
+BB_LDFLAGS	= -om -non_shared -fast -arch host -tune host -assume accuracy_sensitive -no_fp_reorder 
+#BB_LDFLAGS	= -arch host -tune host -assume accuracy_sensitive -no_fp_reorder 
+BB_LIBS		= -ldxml -lUfor -lfor -lFutil -lm -lots -lc
+
+# Cachebench values
+
+CB_CC		= $(BB_CC)
+CB_CFLAGS	= $(BB_CFLAGS)
+CB_LDFLAGS 	= $(BB_LDFLAGS)
+
+# MPbench values
+
+MP_MPI_CC	= mpicc
+MP_CFLAGS	= $(BB_CFLAGS)
+MP_LDFLAGS	= $(BB_LDFLAGS)
+MPI_LIBS	= 
+MPIRUNCMD	= mpirun
+MPIRUNPROCS	= -np
+MPIHOSTFILE	= -machinefile
+MPIRUNPOSTOPTS	= mpi_bench

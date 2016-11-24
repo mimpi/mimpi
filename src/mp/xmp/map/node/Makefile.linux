@@ -1,0 +1,91 @@
+# ........................................................................
+#
+#  fgarcia,acaldero@hinojo.datsi.fi.upm.es
+#
+# ........................................................................
+
+
+
+#--------------------------
+# 1.- Native configuration
+#--------------------------
+
+CC             = gcc
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./ -I../../../.. -I../../../../../include
+SOURCE_PATH    =   ./
+CFLAGS         = -g -Wall -D__LINUX__
+LIBLINK        = -lpthread
+
+
+#--------------------------
+# 2.- library object
+#--------------------------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/l_nodes/params_xmp.o                        \
+            $(SOURCE_PATH)/l_nodes/l_params_xmp.o                      \
+            $(SOURCE_PATH)/l_nodes/l_params_xmp/l_params_xmp_sb.o      \
+            $(SOURCE_PATH)/l_nodes/l_params_xmp/l_params_xmp_nodes.o   \
+            \
+            $(SOURCE_PATH)/l_nodes/l_nodei.o                           \
+            $(SOURCE_PATH)/l_nodes/l_nodei/l_nodeheader.o              \
+            $(SOURCE_PATH)/l_nodes/l_nodei/l_nodedata.o                \
+            \
+            $(SOURCE_PATH)/l_nodes/l_netman.o                          \
+            $(SOURCE_PATH)/l_nodes/l_netman/l_netid.o                  \
+            $(SOURCE_PATH)/l_nodes/l_netman/l_netlnk.o                 \
+            \
+            $(SOURCE_PATH)/l_nodes/l_snoopy.o                               \
+            $(SOURCE_PATH)/l_nodes/l_snoopy/l_snoopy_send.o                 \
+            $(SOURCE_PATH)/l_nodes/l_snoopy/l_snoopy_recv.o                 \
+            $(SOURCE_PATH)/l_nodes/l_snoopy/l_snoopy_ns.o                   \
+            $(SOURCE_PATH)/l_nodes/l_snoopy/l_snoopy_accept.o               \
+            $(SOURCE_PATH)/l_nodes/l_snoopy/l_snoopy_ns/l_snoopy_ns_dump.o  \
+            $(SOURCE_PATH)/l_nodes/l_snoopy/l_snoopy_ns/l_snoopy_ns_trace.o \
+            \
+            $(SOURCE_PATH)/l_nodes/l_reqman.o                          \
+            $(SOURCE_PATH)/l_nodes/l_reqman/l_reqli.o                  \
+            \
+            $(SOURCE_PATH)/l_nodes/l_nodecmd.o                         \
+            \
+            $(SOURCE_PATH)/l_nodes.o                                   \
+            $(SOURCE_PATH)/l_nodereq.o                                 \
+            $(SOURCE_PATH)/l_nodegrp.o                                 \
+            $(SOURCE_PATH)/l_nodeinfo.o 
+
+ 
+#--------------------------
+# 3.- compilation rules
+#--------------------------
+
+all:    init  $(OBJETOS)
+fast:         $(OBJETOS)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    node" 
+	@echo "   ------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) 
+	@echo "   Trash succesfully removed !."
+
+
+# ........................................................................
+

@@ -1,0 +1,72 @@
+#---------------------- lock' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SUNOS
+#-----------------------
+ 
+CC            = gcc
+LIB_PATH      = -L/usr/lib
+INCLUDE_PATH   = -I./ -I./../../../src/ -I./../../../include/
+SOURCE_PATH   =   .
+CFLAGS        = -g -Wall -D__SUNOS__ -D_REENTRANT -DPOSIX_THREADS  -DSOLARIS
+LIBLINK       = -lpthread -lsocket -lnsl -lposix4 
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/lock.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    lock
+refast: clean   lock
+fast:   lock
+
+lock: $(OBJETOS)
+	@echo "   Building lock :"
+	@echo "     lock.sunos ..."
+	@$(CC)  $(CFLAGS) -o lock.sunos $(OBJETOS) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    lock" 
+	@echo "   -----"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  ./lock.sunos
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- lock' MAKEFILE -------------------- 
+

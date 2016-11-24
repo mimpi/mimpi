@@ -1,0 +1,317 @@
+
+
+
+dnl
+dnl  MiMPI's configure.in
+dnl ----------------------
+dnl
+dnl   Process this file with autoconf to produce
+dnl   a configure script.
+dnl
+
+
+dnl
+dnl begin
+dnl
+AC_INIT(src/mp/mpi/node.c)
+AC_CONFIG_AUX_DIR(./config)
+AC_CONFIG_HEADER(include/config.h)
+
+
+dnl
+dnl Checks for programs.
+dnl
+AC_PROG_MAKE_SET
+
+
+dnl
+dnl Checks for libraries.
+dnl
+dnl Replace `main' with a function in -lefence:
+AC_CHECK_LIB(efence, main)
+dnl Replace `main' with a function in -lpthread:
+AC_CHECK_LIB(pthread, main)
+dnl Replace `main' with a function in -lpthreads:
+AC_CHECK_LIB(pthreads, pthreads_cond_init)
+
+
+dnl
+dnl Checks for header files.
+dnl
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h limits.h malloc.h strings.h termio.h unistd.h sys/ioctl.h sys/time.h netinet/tcp.h sys/xti.h pthread.h zlib.h windows.h sys/param.h sys/poll.h poll.h)
+
+
+dnl
+dnl Checks for typedefs, structures, and compiler characteristics.
+dnl
+AC_C_CONST
+AC_HEADER_TIME
+AC_CHECK_TYPE(ptrdiff_t,long)
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+AC_TYPE_SIGNAL
+AC_CHECK_SIZEOF(unsigned short,2)
+AC_CHECK_SIZEOF(unsigned,4)
+AC_CHECK_SIZEOF(unsigned long,8)
+AC_CHECK_SIZEOF(char *,4)
+AC_CHECK_SIZEOF(ptrdiff_t,4)
+AC_CHECK_SIZEOF(size_t,4)
+
+
+dnl
+dnl Checks for library functions.
+dnl
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(gethostname gettimeofday select poll socket strdup strerror)
+AC_CHECK_FUNCS(memcmp memcpy memmove memset)
+
+
+dnl
+dnl Canonicalize the configuration name.
+dnl
+dnl LIBLINK = 
+dnl      -lpthread
+dnl      -lm
+dnl      -lefence
+dnl OS = 
+dnl      __LINUX__
+dnl      __SUNOS__
+dnl      __SOLARIS__
+dnl      __AIX__
+dnl      __IRIX64__
+dnl CFLAGS = 
+dnl      -g 
+dnl      -Wall 
+dnl      -O2 
+dnl      -D_REENTRANT 
+dnl      -DPOSIX_THREADS 
+dnl DEFS = 
+dnl      -D__SWITCH__ 
+dnl      -D__MEMORY_DEBUG__ 
+dnl      -D__DEBUG_MPI__
+dnl      -DHAVE_CONFIG_H
+dnl CC = 
+dnl      gcc
+dnl      cc
+dnl      cc_r
+dnl MAKE = 
+dnl      gmake
+dnl      make
+dnl
+AC_CANONICAL_SYSTEM
+if test "$target_os" = "Linux" -o "$target_os" = "linux"
+then
+  OS="__LINUX__"
+  CC="gcc"
+  MAKE="make"
+  CFLAGS="-O2 -Wall"
+  DEFS="-D_REENTRANT"
+  LIBLINK="-lmpi -lpthread -lm -lz -llzo"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("Linux");
+fi
+if test "$target_os" = "Sunos" -o "$target_os" = "sunos"
+then
+  OS="__SUNOS__"
+  CC="gcc"
+  MAKE="make"
+  CFLAGS="-g -Wall"
+  DEFS="-D_REENTRANT"
+  LIBLINK="-lmpi -lsocket -lnsl"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("Sunos");
+fi
+if test "$target_os" = "Solaris" -o "$target_os" = "solaris"
+then
+  OS="__SOLARIS__"
+  CC="gcc"
+  MAKE="make"
+  LIBLINK="-lmpi -lsocket -lnsl"
+  CFLAGS="-g -Wall"
+  DEFS="-D_REENTRANT"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("Solaris");
+fi
+if test "$target_os" = "AIX4.2.1.0" -o "$target_os" = "aix4.2.1.0"
+then
+  OS="__AIX__"
+  CC="cc_r"
+  MAKE="gmake"
+  CFLAGS="-g -DHAVE_CONFIG_H -D__SP2__"
+  DEFS="-D_REENTRANT"
+  LIBLINK="-lmpi"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("AIX");
+fi
+if test "$target_os" = "AIX" -o "$target_os" = "aix"
+then
+  OS="__AIX__"
+  CC="gcc"
+  MAKE="make"
+  CFLAGS="-g -Wall"
+  DEFS="-D_REENTRANT"
+  LIBLINK="-lmpi"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("AIX");
+fi
+if test "$target_os" = "IRIX6.5" -o "$target_os" = "irix6.5"
+then
+  OS="__IRIX__"
+  CC="gcc"
+  MAKE="gmake"
+  CFLAGS="-g -Wall"
+  DEFS="-D_REENTRANT -DPOSIX_THREADS"
+  LIBLINK="-lmpi -lpthread -lz -llzo"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("IRIX6.5");
+fi
+if test "$target_os" != "Linux"      -a "$target_os" != "linux"   -a \
+        "$target_os" != "SunOS"      -a "$target_os" != "sunos"   -a \
+        "$target_os" != "Solaris"    -a "$target_os" != "solaris" -a \
+        "$target_os" != "AIX"        -a "$target_os" != "aix"     -a \
+        "$target_os" != "AIX4.2.1.0" -a "$target_os" != "aix4.2.1.0" -a \
+        "$target_os" != "IRIX6.5"    -a "$target_os" != "irix6.5" 
+then
+  OS="__LINUX__"
+  CC="gcc"
+  MAKE="gmake"
+  CFLAGS="-O2 -Wall"
+  DEFS="-D_REENTRANT -DPOSIX_THREADS"
+  LIBLINK="-lmpi -lpthread -lz -llzo"
+  AC_SUBST(OS)
+  AC_SUBST(CC)
+  AC_SUBST(MAKE)
+  AC_SUBST(CFLAGS)
+  AC_SUBST(DEFS)
+  AC_SUBST(LIBLINK)
+  AC_MSG_RESULT("no defined \(using Linux configuration\)");
+fi
+
+
+dnl
+dnl Build makefile and headers...
+dnl
+AC_OUTPUT(Makefile
+          src/mp/mpi/Makefile
+          src/mp/xmp/base/Makefile
+          src/mp/xmp/map/node_server/Makefile
+          src/mp/xmp/map/node/Makefile
+          src/mp/xmp/map/Makefile
+          src/mp/xmp/Makefile
+          src/mp/Makefile
+          src/base/Makefile
+          src/console/Makefile
+          src/Makefile
+          src_EXTERN/Makefile
+          src_EXTERN/lzo/Makefile
+          src_EXTERN/lzrw3/Makefile
+          util/mpi_exec/Makefile
+          util/xmp_run/Makefile
+          util/test_reduce/Makefile
+          util/test_run/Makefile
+          util/Makefile
+          example/hello/Makefile
+          example/ping/Makefile
+          example/Makefile
+          test/integrity/base/Makefile
+          test/integrity/base/l_adt/Makefile
+          test/integrity/base/l_alloc/Makefile
+          test/integrity/base/l_basic/Makefile
+          test/integrity/base/l_cl/Makefile
+          test/integrity/base/l_debug/Makefile
+          test/integrity/base/l_file/Makefile
+          test/integrity/base/l_string/Makefile
+          test/integrity/base/l_time/Makefile
+          test/integrity/base/l_zlib/Makefile
+          test/integrity/Makefile
+          test/integrity/console/Makefile
+          test/integrity/mp/Makefile
+          test/integrity/mp/xmp/Makefile
+          test/integrity/mp/xmp/l_nodei/Makefile
+          test/integrity/mp/xmp/l_nodeli/Makefile
+          test/integrity/mp/mpi/Makefile
+          test/integrity/mp/mpi/bcast/Makefile
+          test/integrity/mp/mpi/gather/Makefile
+          test/integrity/mp/mpi/ping/Makefile
+          test/integrity/mp/mpi/reduce/Makefile
+          test/integrity/mp/mpi/scatter/Makefile
+          test/integrity/mp/mpi/wtime/Makefile
+          test/performance/Makefile
+          test/performance/linux/Makefile
+          test/performance/linux/mimpi/Makefile
+          test/performance/linux/mimpi/bcast/Makefile
+          test/performance/linux/mimpi/gather/Makefile
+          test/performance/linux/mimpi/ping/Makefile
+          test/performance/linux/mimpi/ping_r/Makefile
+          test/performance/linux/mimpi/ping_mt/Makefile
+          test/performance/linux/mimpi/scatter/Makefile
+          test/performance/linux/mimpi/gather/Makefile
+          test/performance/irix/Makefile
+          test/performance/irix/mimpi/Makefile
+          test/performance/irix/mimpi/ping/Makefile
+          test/efficiency/Makefile
+          test/efficiency/plataform/Makefile
+          test/efficiency/plataform/zlib/Makefile
+          test/efficiency/plataform/zlib/zperf2/Makefile
+          test/efficiency/plataform/zlib/zperf1/Makefile
+          test/efficiency/plataform/ping_pong/Makefile
+          test/efficiency/plataform/lock/Makefile
+          test/efficiency/plataform/fpu/Makefile
+          test/efficiency/mp/Makefile
+          test/efficiency/mp/xmp/Makefile
+          test/efficiency/mp/mpi/Makefile
+          test/efficiency/mp/mpi/bcast/Makefile
+          test/efficiency/mp/mpi/bcast_2/Makefile
+          test/efficiency/mp/mpi/gather/Makefile
+          test/efficiency/mp/mpi/gather_2/Makefile
+          test/efficiency/mp/mpi/ping/Makefile
+          test/efficiency/mp/mpi/ping2/Makefile
+          test/efficiency/mp/mpi/ping_r/Makefile
+          test/efficiency/mp/mpi/reduce/Makefile
+          test/efficiency/mp/mpi/scatter/Makefile
+          test/efficiency/console/Makefile
+          test/efficiency/base/Makefile
+          test/efficiency/base/l_adt/Makefile
+          test/efficiency/base/l_alloc/Makefile
+          test/efficiency/base/l_debug/Makefile
+          test/efficiency/base/l_net/Makefile
+          test/efficiency/base/l_string/Makefile
+          test/efficiency/base/l_time/Makefile
+          test/efficiency/aplication/Makefile
+          test/efficiency/aplication/partest_s/Makefile
+          test/efficiency/aplication/partest_p/Makefile
+          test/Makefile)
+

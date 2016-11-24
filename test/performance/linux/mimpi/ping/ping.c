@@ -1,0 +1,198 @@
+/* ....................................................................
+ *
+ * Copyright Alejandro Calderon (1997-1999)
+ * <acaldero@laurel.datsi.fi.upm.es>
+ * See documentation for more information.
+ *
+ * permission is hereby granted to copy, modify and redistribute this code
+ * in terms of the GNU Library General Public License, Version 2 or later,
+ * at your option.
+ *
+ * .................................................................... */
+
+
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <pthread.h>
+#include "mpi.h"
+
+
+#define PRUEBAS 		100
+
+
+int main(int argc, char *argv[])
+{
+	int             ret;
+	char           *buf;
+	char            processor_name[MPI_MAX_PROCESSOR_NAME];
+	int             namelen;
+	double          start_time;
+        double          used_time;
+        double          avg_time;
+        double          us_rate;
+        int             max_len, lenbuf;
+        int             i, j;
+	int             me, nproc;
+	MPI_Status      status;
+        FILE           *fparam ;
+
+
+	setbuf(stdout, NULL);
+/*
+	if (argc != 2)
+        {
+                printf("Use: ping <max_len> \n");
+		exit(1);
+        }
+	max_len =atoi(argv[1]);
+*/
+/*
+#if defined(__LINUX__)
+        fparam = fopen("ping.in","rt") ;
+#endif
+#if defined(__SUNOS__)
+        fparam = fopen("ping.in","rt") ;
+#endif
+#if defined(__SP2__)
+        fparam = fopen("/u/fperez/XMP/MiMPI/test/mp/mpi/performance/ping/ping.in","rt") ;
+#endif
+        if (fparam == NULL)
+        {
+                printf("ERROR: can not open ping.in, sorry.\n");
+		exit(1);
+        }
+        ret = fscanf(fparam,"max_len=%i",&max_len) ;
+        fclose(fparam) ;
+        if (ret != 1)
+        {
+                printf("ERROR: can not read a valid 'max_len' value from ping.in, sorry.\n");
+		exit(1);
+        }
+*/
+        max_len = 1024 * 1024 * 1024;
+
+	ret = MPI_Init(&argc, &argv);	
+	if (ret < 0)
+	{
+		printf("Can't init\n");
+		exit(1);
+	}
+
+	MPI_Comm_rank(MPI_COMM_WORLD,&me);
+	MPI_Get_processor_name(processor_name,&namelen);
+	MPI_Comm_size(MPI_COMM_WORLD, &nproc);
+
+#if (0)
+	printf("Process %d; total %d is alive on %s\n",me,nproc,processor_name);
+#endif
+
+
+	MPI_Barrier(MPI_COMM_WORLD) ;
+
+        buf = (char *) malloc((unsigned) max_len);
+        if (buf == NULL)
+        {
+                perror("Error en malloc");
+                exit(1);
+        }
+
+	for (i=0; i<max_len; i++) {
+		((char *)buf)[i] = (char)i ;
+	}
+
+#if (0)
+	printf("PING LISTO \n");
+	if (me == 0)
+	{
+	  ret=MPI_Send(buf,12,MPI_CHAR,1,1, MPI_COMM_WORLD);
+	}
+	else
+	{
+	  ret=MPI_Recv(buf,12,MPI_CHAR,0,1, MPI_COMM_WORLD, &status);
+	  printf("count = %d\n", status.count);
+	}
+#endif
+
+	lenbuf = 1 ;
+        while (lenbuf <= max_len)
+        {
+		avg_time = 0.0;
+		if (me == 0)
+		{
+			for(j = 0; j < PRUEBAS; j++)
+                	{
+				ret=MPI_Recv(buf,lenbuf,MPI_CHAR,1,1,
+						MPI_COMM_WORLD, &status);
+                                /*
+                		if (ret != MPI_SUCCESS)
+                        		perror("Error en MPI_Recv");
+                                */
+
+				ret=MPI_Send(buf,lenbuf,MPI_CHAR,1,1,
+					MPI_COMM_WORLD);
+                                /*
+                		if (ret != MPI_SUCCESS)
+                        		perror("Error en MPI_Send\n");
+                                */
+			}
+		}
+		else
+		{
+			for(j = 0; j < PRUEBAS; j++)
+                        {
+				start_time = MPI_Wtime();
+
+				ret=MPI_Send(buf,lenbuf,MPI_CHAR,0,1,
+                                        MPI_COMM_WORLD);
+
+                                /*
+                        	if (ret != MPI_SUCCESS)
+                                	perror("Error en MPI_Send\n");
+                                */
+				ret=MPI_Recv(buf,lenbuf,MPI_CHAR,0,1,
+                                                MPI_COMM_WORLD, &status);
+                                /*
+                        	if (ret != MPI_SUCCESS)
+                                	perror("Error en MPI_Recv");
+                                */
+
+				used_time = (MPI_Wtime() - start_time);
+				avg_time = avg_time + used_time;
+			}
+
+                	avg_time =  avg_time / (float)  PRUEBAS;
+			if (avg_time > 0)    /* rate is megabytes per second */
+                        	us_rate = (double)((nproc * lenbuf)/
+					(avg_time*(double)1000000));
+                	else
+                        	us_rate = 0.0;
+
+                	printf("len_bytes=%e avg_time_sec=%e rate_Mbytes_sec=%e\n", 
+			        (double)lenbuf, (double)avg_time, (double)us_rate);
+                }
+
+                lenbuf *= 2;
+        }
+
+#if (1)
+	if (me != 0)
+	    printf("\nclock resolution in seconds: %10.8f\n", MPI_Wtick());
+#endif
+
+        free(buf);
+	MPI_Finalize();
+	exit(0);
+
+	/*
+	printf("Neverending history ...\n");
+	kill(getpid(),9);
+	*/
+	return (0);
+}
+
+		
+	
+	
+	
+	

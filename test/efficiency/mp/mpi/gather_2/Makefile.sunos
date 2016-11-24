@@ -1,0 +1,71 @@
+#---------------------- gather' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+CC            = gcc
+LIB_PATH      = -L/usr/lib
+INCLUDE_PATH   = -I./ -I./../../../../../src/ -I./../../../../../include/
+SOURCE_PATH   =   .
+CFLAGS        = -g -Wall -D__SUNOS__ -D_REENTRANT -DPOSIX_THREADS  -DSOLARIS
+LIBLINK       = -lpthread -lsocket -lnsl -lposix4 -lpthread
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+LIB_PATH  = ../../../../../lib/
+LIBNAME   = libmpi.a
+OBJETOS   = \
+            $(SOURCE_PATH)/l_mpi_test.o \
+            $(SOURCE_PATH)/gather.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    gather
+refast: clean   gather
+fast:   gather
+
+gather: $(OBJETOS)
+	@echo "   Building gather :"
+	@echo "     gather.sunos.xmp ..."
+	@$(CC)  $(CFLAGS) -o gather.sunos.xmp $(OBJETOS) $(LIBLINK) $(LIB_PATH)/$(LIBNAME)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    gather" 
+	@echo "   --------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  ./gather.sunos.xmp
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- gather' MAKEFILE -------------------- 
+

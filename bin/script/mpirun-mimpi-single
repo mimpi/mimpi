@@ -1,0 +1,82 @@
+#!/bin/sh
+#set -x
+
+
+#
+#  params
+#
+NS_HOST=127.0.0.º
+NS_PORT=55555
+NS_PATH=~/MiMPI/bin
+TEST_PATH=~/MiMPI/test/performance/linux/mimpi/llcbench/mpbench
+#COMPRESS=BEST_SPEED
+#COMPRESS=BEST_COMPRESS
+COMPRESS=NO_COMPRESS
+LOW=0
+HIGH=1048576
+MACHINES=~/MiMPI/bin/machines
+
+
+#
+#  rsh_spawn
+#
+rsh_spawn ()
+{
+  if [ $# -ne 4 ]; then
+	echo ""
+	echo "	Usage: rsh_spawn <n_prog> <id_prog> <r_host> <r_test>"
+	echo ""
+	exit 1
+  fi
+
+  RN=$1
+  RI=$2
+  RHOST=$3
+  RTEST=$4
+
+  rsh $RHOST "( cd $TEST_PATH/ ; env  MPI_BCAST_LIST_SYNC_LOW=0   MPI_BCAST_LIST_SYNC_HIGH=0  MPI_BCAST_LIST_ASYNC_LOW=0  MPI_BCAST_LIST_ASYNC_HIGH=0  MPI_BCAST_LIST_JOIN_LOW=0  MPI_BCAST_LIST_JOIN_HIGH=0  MPI_BCAST_LIST_DISJOIN_LOW=0  MPI_BCAST_LIST_DISJOIN_HIGH=0  MPI_BCAST_TREE_SYNC_LOW=0   MPI_BCAST_TREE_SYNC_HIGH=0  MPI_BCAST_TREE_ASYNC_LOW=$LOW  MPI_BCAST_TREE_ASYNC_HIGH=$HIGH  MPI_BCAST_TREE_JOIN_LOW=0  MPI_BCAST_TREE_JOIN_HIGH=0  MPI_BCAST_TREE_DISJOIN_LOW=0  MPI_BCAST_TREE_DISJOIN_HIGH=0  MPI_BCAST_TREE_CHAIN_LOW=0  MPI_BCAST_TREE_CHAIN_HIGH=0    MPI_REDUCE_LIST_SYNC_LOW=0   MPI_REDUCE_LIST_SYNC_HIGH=0  MPI_REDUCE_LIST_ASYNC_LOW=0  MPI_REDUCE_LIST_ASYNC_HIGH=0  MPI_REDUCE_LIST_JOIN_LOW=0  MPI_REDUCE_LIST_JOIN_HIGH=0   MPI_REDUCE_LIST_JOINLESS_LOW=$LOW  MPI_REDUCE_LIST_JOINLESS_HIGH=$HIGH    MPI_REDUCE_ONE_SYNC_LOW=0  MPI_REDUCE_ONE_SYNC_HIGH=0   COMPRESSION=$COMPRESS  NS_HOST=$NS_HOST NS_PORT=$NS_PORT _N_PROCS=$RN _PROC_ID=$RI  ./$RTEST )" &
+}
+
+
+
+#
+#  main
+#
+if [ $# -ne 3 ]; then
+	echo ""
+	echo "	Usage: mpirun -np <n_prog> <r_test>"
+	echo ""
+	exit 1
+fi
+
+PROG_NUMBER=$2
+PROG_NAME=$3
+
+
+#
+#  startup
+#
+NL=`wc -l $MACHINES| awk '{print $1}'`
+IL=1
+
+NP=$PROG_NUMBER
+IP=0
+
+while [ $IP -lt $NP ]; do
+	LINE=`head -n $IL $MACHINES| tail -n 1`
+        PCNAME=`echo $LINE | awk -F: '{print $1}'`
+
+	rsh_spawn $NP $IP $PCNAME "$PROG_NAME"
+        IP=`expr $IP + 1`
+
+        IL=`expr $IL + 1`
+	if [ $IL -gt $NL ]; then
+		IL=1
+	fi
+done;
+
+
+sh -c "( cd $NS_PATH/ ; env COMPRESSION=$COMPRESS NS_HOST=$NS_HOST NS_PORT=$NS_PORT _N_PROCS=$RN _PROC_ID=$RN ./ns.exe )"
+
+
+ 

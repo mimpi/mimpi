@@ -1,0 +1,40 @@
+
+
+  NodeServer
+ ------------
+
+   MiMPI.1.15.ns.web.17 (Oct 13 1999, 13:28:35)
+
+NS init  ...
+getenv("LOADL_PROCESSOR_LIST") = in21.sp.cesca.es in47.sp.cesca.es in29.sp.cesca.es 
+node_list = in21.sp.cesca.es in47.sp.cesca.es in29.sp.cesca.es
+(*host) = in29.sp.cesca.es
+NS start ...
+NS do_creat()=2
+NS do_creat()=2
+len_bytes=1.000000e+00 avg_time_sec=1.159966e-03 rate_Mbytes_sec=1.724188e-03
+len_bytes=2.000000e+00 avg_time_sec=6.558061e-04 rate_Mbytes_sec=6.099364e-03
+len_bytes=4.000000e+00 avg_time_sec=6.505966e-04 rate_Mbytes_sec=1.229641e-02
+len_bytes=8.000000e+00 avg_time_sec=6.671786e-04 rate_Mbytes_sec=2.398158e-02
+len_bytes=1.600000e+01 avg_time_sec=6.492853e-04 rate_Mbytes_sec=4.928496e-02
+len_bytes=3.200000e+01 avg_time_sec=6.483078e-04 rate_Mbytes_sec=9.871854e-02
+len_bytes=6.400000e+01 avg_time_sec=6.462932e-04 rate_Mbytes_sec=1.980525e-01
+len_bytes=1.280000e+02 avg_time_sec=6.509900e-04 rate_Mbytes_sec=3.932472e-01
+len_bytes=2.560000e+02 avg_time_sec=7.339954e-04 rate_Mbytes_sec=6.975520e-01
+len_bytes=5.120000e+02 avg_time_sec=7.977962e-04 rate_Mbytes_sec=1.283536e+00
+len_bytes=1.024000e+03 avg_time_sec=7.463932e-04 rate_Mbytes_sec=2.743862e+00
+len_bytes=2.048000e+03 avg_time_sec=8.183360e-04 rate_Mbytes_sec=5.005279e+00
+len_bytes=4.096000e+03 avg_time_sec=8.169889e-04 rate_Mbytes_sec=1.002706e+01
+NS do_open()=3
+len_bytes=8.192000e+03 avg_time_sec=9.678960e-04 rate_Mbytes_sec=1.692744e+01
+len_bytes=1.638400e+04 avg_time_sec=1.907575e-03 rate_Mbytes_sec=1.717783e+01
+len_bytes=3.276800e+04 avg_time_sec=1.973093e-03 rate_Mbytes_sec=3.321486e+01
+len_bytes=6.553600e+04 avg_time_sec=3.563118e-03 rate_Mbytes_sec=3.678576e+01
+len_bytes=1.310720e+05 avg_time_sec=7.868993e-03 rate_Mbytes_sec=3.331354e+01
+len_bytes=2.621440e+05 avg_time_sec=1.254841e-02 rate_Mbytes_sec=4.178123e+01
+len_bytes=5.242880e+05 avg_time_sec=2.415893e-02 rate_Mbytes_sec=4.340325e+01
+NS do_disc()=5
+NS Alone at Home !!
+NS do_disc()=5
+NS finalize.
+len_bytes=1.048576e+06 avg_time_sec=4.360470e-02 rate_Mbytes_sec=4.809464e+01

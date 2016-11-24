@@ -1,0 +1,8 @@
+#!/bin/sh
+
+
+rsh css27 env NS_PORT=6500 NS_HOST=css27 _PROC_ID=3 _N_PROCS=2 /a/incw2/home2/fperez/FELIX/XMP/MiMPI/util/ns.exe &
+rsh css28 env NS_PORT=6500 NS_HOST=css27 _PROC_ID=0 _N_PROCS=2 /a/incw2/home2/fperez/FELIX/XMP/MiMPI/test/mpi/performance/ping/ping.sp2.xmp &
+rsh css29 env NS_PORT=6500 NS_HOST=css27 _PROC_ID=1 _N_PROCS=2 /a/incw2/home2/fperez/FELIX/XMP/MiMPI/test/mpi/performance/ping/ping.sp2.xmp 
+
+

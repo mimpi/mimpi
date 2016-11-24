@@ -1,0 +1,54 @@
+# ........................................................................
+#
+#  fgarcia,acaldero@hinojo.datsi.fi.upm.es
+#
+# ........................................................................
+
+
+
+#--------------------------
+# 1.- Native configuration
+#--------------------------
+
+MAKE          = make
+SRCDIR        = .
+DIR           = node  node_server
+
+
+#--------------------------
+# 2.- library object
+#--------------------------
+
+
+
+#--------------------------
+# 3.- compilation rules
+#--------------------------
+
+all:    init  compo 
+fast:         compo
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    xmp_tcp" 
+	@echo "   ---------"
+	@echo "" 
+
+compo:
+	@set -e;  for i in $(DIR);   do cd $$i; $(MAKE) -f Makefile.sp2 fast; cd ..; done
+
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr `find $(SRCDIR) -name "*.o" -print`
+	@rm -fr `find $(SRCDIR) -name "*.a" -print`
+	@rm -fr `find $(SRCDIR) -name "*.exe" -print`
+	@echo "   Trash succesfully removed !."
+
+
+# ........................................................................
+

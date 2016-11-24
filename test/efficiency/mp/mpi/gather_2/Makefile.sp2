@@ -1,0 +1,70 @@
+#---------------------- gather' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+CC            = cc_r
+LIB_PATH      = -L/usr/lib
+SOURCE_PATH   = .
+CFLAGS        = -g -I./ -I./../../../../../../src/ -I./../../../../../../include/ -D__SP2__ 
+LIBLINK       = 
+
+
+
+# --- 2.- Perfil de la libreria -------
+
+LIB_PATH  = ../../../../../../lib/
+LIBNAME   = libmpi.a
+OBJETOS   = \
+            $(SOURCE_PATH)/l_mpi_test.o \
+            $(SOURCE_PATH)/gather.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    gather
+refast: clean   gather
+fast:   gather
+
+gather: $(OBJETOS)
+	@echo "   Building gather :"
+	@echo "     gather.sp2.xmp ..."
+	@$(CC)  $(CFLAGS) -o gather.sp2.xmp $(OBJETOS) $(LIBLINK) $(LIB_PATH)/$(LIBNAME)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    gather" 
+	@echo "   --------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS)  ./gather.sp2.xmp
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- gather' MAKEFILE -------------------- 
+

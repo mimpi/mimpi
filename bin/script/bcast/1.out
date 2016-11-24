@@ -1,0 +1,52 @@
+
+
+  NodeServer
+ ------------
+
+   MiMPI.1.15.ns.web.17 (Oct 13 1999, 13:28:35)
+
+NS init  ...
+getenv("LOADL_PROCESSOR_LIST") = in48.sp.cesca.es in31.sp.cesca.es in41.sp.cesca.es in28.sp.cesca.es in44.sp.cesca.es 
+node_list = in48.sp.cesca.es in31.sp.cesca.es in41.sp.cesca.es in28.sp.cesca.es in44.sp.cesca.es
+(*host) = in44.sp.cesca.es
+NS start ...
+NS do_creat()=2
+NS do_open()=3
+NS do_creat()=2
+NS do_open()=3
+NS do_creat()=2
+NS do_creat()=2
+NS do_open()=3
+NS do_open()=3
+NS do_open()=3
+NS do_open()=3
+NS do_open()=3
+NS do_open()=3
+>>>>>>>>> BARRERA1  =1.927793e-02
+len_bytes=1.000000e+00 avg_time_sec=3.852606e-03 rate_Mbytes_sec=1.038258e-03
+len_bytes=2.000000e+00 avg_time_sec=4.010081e-04 rate_Mbytes_sec=1.994972e-02
+len_bytes=4.000000e+00 avg_time_sec=3.952146e-04 rate_Mbytes_sec=4.048434e-02
+len_bytes=8.000000e+00 avg_time_sec=4.073024e-04 rate_Mbytes_sec=7.856571e-02
+len_bytes=1.600000e+01 avg_time_sec=4.228115e-04 rate_Mbytes_sec=1.513677e-01
+len_bytes=3.200000e+01 avg_time_sec=5.390048e-04 rate_Mbytes_sec=2.374747e-01
+len_bytes=6.400000e+01 avg_time_sec=3.890991e-04 rate_Mbytes_sec=6.579300e-01
+len_bytes=1.280000e+02 avg_time_sec=9.708166e-04 rate_Mbytes_sec=5.273911e-01
+len_bytes=2.560000e+02 avg_time_sec=1.072609e-03 rate_Mbytes_sec=9.546812e-01
+len_bytes=5.120000e+02 avg_time_sec=1.117909e-03 rate_Mbytes_sec=1.831992e+00
+len_bytes=1.024000e+03 avg_time_sec=1.140606e-03 rate_Mbytes_sec=3.591072e+00
+len_bytes=2.048000e+03 avg_time_sec=1.759112e-03 rate_Mbytes_sec=4.656895e+00
+len_bytes=4.096000e+03 avg_time_sec=1.173306e-03 rate_Mbytes_sec=1.396397e+01
+len_bytes=8.192000e+03 avg_time_sec=1.221108e-03 rate_Mbytes_sec=2.683464e+01
+len_bytes=1.638400e+04 avg_time_sec=1.431906e-03 rate_Mbytes_sec=4.576836e+01
+len_bytes=3.276800e+04 avg_time_sec=1.863098e-03 rate_Mbytes_sec=7.035163e+01
+len_bytes=6.553600e+04 avg_time_sec=3.818405e-03 rate_Mbytes_sec=6.865275e+01
+len_bytes=1.310720e+05 avg_time_sec=7.010913e-03 rate_Mbytes_sec=7.478170e+01
+len_bytes=2.621440e+05 avg_time_sec=1.088932e-02 rate_Mbytes_sec=9.629402e+01
+len_bytes=5.242880e+05 avg_time_sec=2.023131e-02 rate_Mbytes_sec=1.036588e+02
+NS do_disc()=5
+NS do_disc()=5
+NS do_disc()=5
+len_bytes=1.048576e+06 avg_time_sec=3.802611e-02 rate_Mbytes_sec=1.103006e+02
+NS Alone at Home !!
+NS do_disc()=5
+NS finalize.

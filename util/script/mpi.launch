@@ -1,0 +1,40 @@
+#!/bin/sh
+set -x
+export BASE_UTIL="../../../../util"
+
+
+
+# --- functions --------------------------------------------------
+
+LAUNCH_usage()
+{
+   echo ""
+   echo "Usage: $0 <NNODES> <PROG_NAME>"
+   echo ""
+}
+
+LAUNCH_doLaunch()
+{
+    echo "$BASE_UTIL"
+
+    env REQUEST=sh_xmp               \
+        NNODES=$1                    \
+        PROG_NAME=$2                 \
+        NS_NAME=$BASE_UTIL/ns.exe    \
+        $BASE_UTIL/xmp_run.exe
+}
+
+
+# --- main -------------------------------------------------------
+
+if test $# -lt 2; then
+   LAUNCH_usage
+   exit 1
+fi
+
+LAUNCH_doLaunch $1 $2
+
+
+# ----------------------------------------------------------------
+
+

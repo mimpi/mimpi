@@ -1,0 +1,69 @@
+#---------------------- gather' MAKEFILE -------------------- 
+ 
+
+
+#--------------------------
+# Sistema base
+#-------------------------- 
+
+CC             = mpicc
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./
+SOURCE_PATH    = .
+CFLAGS         = -Wall
+LIBLINK        = -lpthread
+
+
+
+#--------------------------
+# Objetos
+#-------------------------- 
+
+OBJETOS   = \
+            $(SOURCE_PATH)/gather.o
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    gather
+refast: clean   gather
+fast:   gather
+
+gather: $(OBJETOS)
+	@echo "   Building gather :"
+	@echo "     gather.linux.mpich ..."
+	@$(CC)  $(CFLAGS) -o gather.linux.mpich $(OBJETOS) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    gather" 
+	@echo "   --------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./gather.linux.mpich
+	@echo "   Trash succesfully removed !."
+
+
+
+# ---------------------- gather' MAKEFILE -------------------- 
+

@@ -1,0 +1,59 @@
+# ------------------------------ MAKEFILE -----------------------
+ 
+
+
+# --- 1.- Operating system options ---
+
+CC             = gcc
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./ -I../../../../src/ -I../../../../include
+SOURCE_PATH    = .
+CFLAGS         = -g -Wall  -D__LINUX__
+LIBLINK        = -lpthread -lz
+
+
+
+# --- 2.- Libraries profiles -------
+
+TEST_OBJ  = \
+            $(SOURCE_PATH)/zperf2.o
+
+ 
+
+# --- 3.- Compilation rules -------
+
+all:    init  $(TEST_OBJ)  test
+fast:         $(TEST_OBJ)  test
+
+
+init:
+	@echo "" 
+	@echo "    test" 
+	@echo "   ------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+test:
+	@echo "   Building test :"
+	@echo "     zperf2.exe ..."
+	@$(CC)  $(CFLAGS) -o ./zperf2.exe $(TEST_OBJ) $(LIB_PATH) $(LIBLINK)
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(TEST_OBJ) 
+	@rm -fr ./zperf2.exe
+	@echo "   Trash succesfully removed !."
+
+
+
+# ------------------------------ MAKEFILE -----------------------
+

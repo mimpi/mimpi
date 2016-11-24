@@ -1,0 +1,41 @@
+
+
+  NodeServer
+ ------------
+
+   MiMPI.1.30.ns.web.17 (Jul 23 2002, 18:16:45)
+
+NS init  ...
+NS start ...
+barrier
+barrier
+barrier
+barrier
+barrier
+barrier
+barrier
+barrier
+>>>>>>>>> BARRERA1  =5.655003e-06
+len_bytes=1 avg_time_sec=0.000163 rate_Mbytes_sec=0.049179
+len_bytes=2 avg_time_sec=0.000093 rate_Mbytes_sec=0.172562
+len_bytes=4 avg_time_sec=0.000294 rate_Mbytes_sec=0.108985
+len_bytes=8 avg_time_sec=0.000103 rate_Mbytes_sec=0.619736
+len_bytes=16 avg_time_sec=0.000385 rate_Mbytes_sec=0.332631
+len_bytes=32 avg_time_sec=0.000280 rate_Mbytes_sec=0.914938
+len_bytes=64 avg_time_sec=0.000276 rate_Mbytes_sec=1.851785
+len_bytes=128 avg_time_sec=0.000459 rate_Mbytes_sec=2.232101
+len_bytes=256 avg_time_sec=0.000330 rate_Mbytes_sec=6.213221
+len_bytes=512 avg_time_sec=0.000178 rate_Mbytes_sec=22.950657
+len_bytes=1024 avg_time_sec=0.000494 rate_Mbytes_sec=16.582993
+len_bytes=2048 avg_time_sec=0.001135 rate_Mbytes_sec=14.437154
+len_bytes=4096 avg_time_sec=0.002339 rate_Mbytes_sec=14.010246
+len_bytes=8192 avg_time_sec=0.004798 rate_Mbytes_sec=13.658995
+len_bytes=16384 avg_time_sec=0.009669 rate_Mbytes_sec=13.555494
+len_bytes=32768 avg_time_sec=0.019382 rate_Mbytes_sec=13.525064
+len_bytes=65536 avg_time_sec=0.039848 rate_Mbytes_sec=13.157194
+len_bytes=131072 avg_time_sec=0.078222 rate_Mbytes_sec=13.405043
+len_bytes=262144 avg_time_sec=0.155982 rate_Mbytes_sec=13.444792
+len_bytes=524288 avg_time_sec=0.313026 rate_Mbytes_sec=13.399204
+len_bytes=1048576 avg_time_sec=0.623861 rate_Mbytes_sec=13.446272
+NS Alone at Home !!
+NS finalize.

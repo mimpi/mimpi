@@ -1,0 +1,2 @@
+env NS_PORT=7500 ./server.exe &
+env NS_PORT=7500 ./client.exe 

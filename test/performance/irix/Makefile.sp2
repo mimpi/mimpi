@@ -1,0 +1,44 @@
+# ------------------------------ MAKEFILE ----------------------- 
+
+
+
+# --- 1.- Operating system options ---
+
+MAKE          = make
+SRCDIR        = .
+DIR           = mimpi
+
+
+
+# --- 2.- Libraries profiles -------
+
+
+
+# --- 3.- Compilation rules -------
+
+all:    init  compo
+fast:         compo
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    tests" 
+	@echo "   -------" 
+	@echo "" 
+
+compo:
+	@set -e;  for i in $(DIR);  do cd $$i; $(MAKE) -f Makefile.sp2   fast; cd ..; done
+
+
+
+clean: 
+	@echo "   Removing trash..."
+	@set -e;  for i in $(DIR);  do cd $$i; $(MAKE) -f Makefile.sp2   clean; cd ..; done
+	@echo "   Trash succesfully removed !."
+
+
+
+# ----------------------------- END MAKEFILE -------------------- 
+

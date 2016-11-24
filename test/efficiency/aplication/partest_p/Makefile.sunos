@@ -1,0 +1,73 @@
+#---------------------- partest' MAKEFILE -------------------- 
+ 
+
+
+
+# --- 1.- Opciones del sistema base ---
+
+#-----------------------
+# Constantes en SUNOS
+#-----------------------
+ 
+CC            = gcc
+LIB_PATH      = -L/usr/lib
+INCLUDE_PATH  = -I./ -I./../../../../src/ -I./../../../../include/
+SOURCE_PATH   =   .
+CFLAGS        = -g -Wall -D__SUNOS__ -D_REENTRANT -DPOSIX_THREADS  -DSOLARIS
+LIBLINK       = -lpthread -lsocket -lnsl -lposix4
+
+
+# --- 2.- Perfil de la libreria -------
+
+LIB_PATH  = ../../../../lib/
+LIBNAME   = libmpi.a
+OBJETOS   = \
+            $(SOURCE_PATH)/partest.o
+
+
+
+ 
+#--------------------------
+# Reglas de compilacion ...
+#-------------------------- 
+
+all:    init    partest
+refast: clean   partest
+fast:   partest
+
+partest: $(OBJETOS)
+	@echo "   Building partest :"
+	@echo "     partest.sunos.xmp ..."
+	@$(CC)  $(CFLAGS) -o partest.sunos.xmp $(SOURCE_PATH)/partest.o $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    partest" 
+	@echo "   ---------"
+	@echo "" 
+	@echo "   Computer  :"
+	@echo "     "`uname -a` 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) ./partest.sunos.xmp
+	@echo "   Trash succesfully removed !."
+
+
+
+
+# ---------------------- partest' MAKEFILE -------------------- 
+

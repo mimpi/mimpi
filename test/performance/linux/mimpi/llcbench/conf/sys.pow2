@@ -1,0 +1,25 @@
+# IBM AIX power pc SMP  (SP/2)
+
+# Blasbench values
+
+BB_CC      	= xlc
+# -O3 -qtune=604 -qarch=ppc -qfloat=hsflt -DREGISTER 
+# -O3 -qtune=604 -qarch=ppc -qfloat=hsflt
+BB_CFLAGS  	= -g
+BB_LDFLAGS 	= -g
+BB_LIBS    	= -lesslsmp -lm
+
+# Cachebench values
+
+CB_CC		= $(BB_CC)
+CB_CFLAGS	= $(BB_CFLAGS)
+CB_LDFLAGS 	= $(BB_LDFLAGS)
+
+# MPBench values
+
+MP_MPI_CC	= mpcc
+MP_CFLAGS	= $(BB_CFLAGS)
+MP_LDFLAGS	= $(BB_LDFLAGS)
+MPIRUNCMD	= poe mpi_bench
+MPIRUNOPTS	= -euilib us -rmpool 1 
+MPIRUNPROCS	= -procs

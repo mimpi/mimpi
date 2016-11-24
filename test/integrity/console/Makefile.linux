@@ -1,0 +1,72 @@
+# ------------------------------ MAKEFILE -----------------------
+ 
+
+
+# --- 1.- Operating system options ---
+
+CC             = gcc
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./ -I../../../src/ -I../../../include
+SOURCE_PATH    = .
+CFLAGS         = -g -Wall  -D__LINUX__ -D__MEMORY_DEBUG__
+LIBLINK        = -lpthread
+
+
+
+# --- 2.- Libraries profiles -------
+
+LIB_PATH  = ../../../lib/
+LIBNAME   = libmpi.a
+TEST_OBJ  = \
+            $(SOURCE_PATH)/l_condition_msg.o   \
+            $(SOURCE_PATH)/l_stack_msg.o       \
+            $(SOURCE_PATH)/l_trace_msg.o       \
+            $(SOURCE_PATH)/l_verbose_msg.o
+
+ 
+
+# --- 3.- Compilation rules -------
+
+all:    init  $(TEST_OBJ)  test
+fast:         $(TEST_OBJ)  test
+
+
+init:
+	@echo "" 
+	@echo "    test" 
+	@echo "   ------" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+test:
+	@echo "   Building test :"
+	@echo "     l_condition_msg.exe ..."
+	@$(CC)  $(CFLAGS) -o l_condition_msg.exe l_condition_msg.o $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+	@echo "     l_stack_msg.exe ..."
+	@$(CC)  $(CFLAGS) -o l_stack_msg.exe l_stack_msg.o $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+	@echo "     l_trace_msg.exe ..."
+	@$(CC)  $(CFLAGS) -o l_trace_msg.exe l_trace_msg.o $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+	@echo "     l_verbose_msg.exe ..."
+	@$(CC)  $(CFLAGS) -o l_verbose_msg.exe l_verbose_msg.o $(LIB_PATH)/$(LIBNAME) $(LIBLINK)
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(TEST_OBJ) 
+	@rm -fr ./l_condition_msg.exe
+	@rm -fr ./l_stack_msg.exe
+	@rm -fr ./l_trace_msg.exe
+	@rm -fr ./l_verbose_msg.exe
+	@echo "   Trash succesfully removed !."
+
+
+
+# ------------------------------ MAKEFILE -----------------------
+

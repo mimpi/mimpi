@@ -1,0 +1,125 @@
+# ........................................................................
+#
+#  fgarcia,acaldero@hinojo.datsi.fi.upm.es
+#
+# ........................................................................
+
+
+
+#--------------------------
+# 1.- Native configuration
+#--------------------------
+
+CC             = @CC@
+LIB_PATH       = -L/usr/lib
+INCLUDE_PATH   = -I./ -I../../ -I../../../include
+SOURCE_PATH    = ./
+CFLAGS         = @DEFS@ -D@OS@ 
+LIBLINK        = @LIBLINK@ 
+
+
+#--------------------------
+# 2.- library object
+#--------------------------
+
+OBJETOS   = \
+            $(SOURCE_PATH)/l_params_mpi.o                         \
+            $(SOURCE_PATH)/params_mpi.o                           \
+            \
+            $(SOURCE_PATH)/l_filter_request.o                    \
+            $(SOURCE_PATH)/l_multi_request.o                     \
+            $(SOURCE_PATH)/l_multi_request/l_mr_thread.o         \
+            $(SOURCE_PATH)/l_multi_request/l_mr_sync.o           \
+            $(SOURCE_PATH)/l_multi_request/l_mr_async.o          \
+            $(SOURCE_PATH)/node.o                                \
+	    \
+            $(SOURCE_PATH)/l_society.o                            \
+            $(SOURCE_PATH)/l_datatype.o                           \
+            $(SOURCE_PATH)/l_datatype/l_datatype_byte.o           \
+            $(SOURCE_PATH)/l_datatype/l_datatype_char.o           \
+            $(SOURCE_PATH)/l_datatype/l_datatype_int.o            \
+            $(SOURCE_PATH)/l_datatype/l_datatype_float.o          \
+            $(SOURCE_PATH)/l_datatype/l_datatype_double.o         \
+            $(SOURCE_PATH)/mpix_math.o                            \
+	    \
+            $(SOURCE_PATH)/mpi_get_processor_name.o               \
+            $(SOURCE_PATH)/mpi_get_version.o                      \
+            $(SOURCE_PATH)/mpi_group.o                            \
+            $(SOURCE_PATH)/mpi_group_excl.o                       \
+            $(SOURCE_PATH)/mpi_comm.o                             \
+            $(SOURCE_PATH)/mpi_comm_create.o                      \
+            $(SOURCE_PATH)/mpi_comm_group.o                       \
+            $(SOURCE_PATH)/mpi_comm_rank.o                        \
+            $(SOURCE_PATH)/mpi_comm_size.o                        \
+            $(SOURCE_PATH)/mpi_pack.o                             \
+            $(SOURCE_PATH)/mpi_unpack.o                           \
+            $(SOURCE_PATH)/mpi_pack_size.o                        \
+            $(SOURCE_PATH)/mpi_get_count.o                        \
+            $(SOURCE_PATH)/mpi_request.o                          \
+            $(SOURCE_PATH)/mpi_recv.o                             \
+            $(SOURCE_PATH)/mpi_irecv.o                            \
+            $(SOURCE_PATH)/mpi_send.o                             \
+            $(SOURCE_PATH)/mpi_isend.o                            \
+            $(SOURCE_PATH)/mpi_sendrecv.o                         \
+            $(SOURCE_PATH)/mpi_wait.o                             \
+            $(SOURCE_PATH)/mpi_send_init.o                        \
+            $(SOURCE_PATH)/mpi_recv_init.o                        \
+            $(SOURCE_PATH)/mpi_start.o                            \
+            $(SOURCE_PATH)/mpi_allreduce.o                        \
+            $(SOURCE_PATH)/mpi_allgather.o                        \
+            $(SOURCE_PATH)/mpi_allgather/mpi_allgather_gb.o       \
+            $(SOURCE_PATH)/mpi_allgather/mpi_allgather_dp.o       \
+            $(SOURCE_PATH)/mpi_barrier.o                          \
+            $(SOURCE_PATH)/mpi_barrier/mpi_barrier_48h.o          \
+            $(SOURCE_PATH)/mpi_bcast.o                            \
+            $(SOURCE_PATH)/mpi_bcast/mpi_bcast_list.o             \
+            $(SOURCE_PATH)/mpi_bcast/mpi_bcast_chain.o            \
+            $(SOURCE_PATH)/mpi_bcast/mpi_bcast_tree.o             \
+            $(SOURCE_PATH)/mpi_reduce.o                           \
+            $(SOURCE_PATH)/mpi_reduce/mpi_reduce_op.o             \
+            $(SOURCE_PATH)/mpi_reduce/mpi_reduce_list.o           \
+            $(SOURCE_PATH)/mpi_reduce/mpi_reduce_one.o            \
+            $(SOURCE_PATH)/mpi_gather.o                           \
+            $(SOURCE_PATH)/mpi_gather/mpi_gather_list.o           \
+            $(SOURCE_PATH)/mpi_scatter.o                          \
+            $(SOURCE_PATH)/mpi_scatter/mpi_scatter_list.o         \
+            $(SOURCE_PATH)/mpi_initialized.o                      \
+            $(SOURCE_PATH)/mpi_init.o                             \
+            $(SOURCE_PATH)/mpi_finalize.o
+
+
+
+#--------------------------
+# 3.- compiation rules
+#--------------------------
+
+all:    init  $(OBJETOS)
+fast:         $(OBJETOS)
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    MPI" 
+	@echo "   -----" 
+	@echo "" 
+	@echo "   Options   :"
+	@echo "     "$(CFLAGS)
+	@echo "   Directory :"
+	@echo "     "$(INCLUDE_PATH)
+	@echo "   Compiling :"
+
+%.o: %.c
+	@echo "     $< ..." 
+	@$(CC)  $(CFLAGS) $(INCLUDE_PATH) -c $< -o $@ 
+
+
+clean: 
+	@echo "   Removing trash..."
+	@rm -fr $(OBJETOS) 
+	@echo "   Trash succesfully removed !."
+
+
+# ........................................................................
+

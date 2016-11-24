@@ -1,0 +1,41 @@
+# ------------------------------ MAKEFILE ----------------------- 
+ 
+
+
+# --- 1.- Opciones del sistema base ---
+
+CC            = gcc
+MAKE          = make
+SRCDIR        =   .
+DIR           = ping  ping2  ping_r  bcast  reduce  gather  scatter
+
+
+
+# --- 2.- Reglas de compilacion -------
+
+all:    init  compo
+fast:         compo
+
+
+init:
+	@echo [2J 
+	@echo "[1;1f" 
+	@echo "" 
+	@echo "    MPI performance" 
+	@echo "   -----------------" 
+	@echo "" 
+
+compo:
+	@set -e;  for i in $(DIR);  do cd $$i; $(MAKE) -f Makefile.sunos fast; cd ..; done
+
+
+
+clean: 
+	@echo "   Removing trash..."
+	@set -e;  for i in $(DIR);  do cd $$i; $(MAKE) -f Makefile.sunos clean; cd ..; done
+	@echo "   Trash succesfully removed !."
+
+
+
+# ----------------------------- END MAKEFILE -------------------- 
+

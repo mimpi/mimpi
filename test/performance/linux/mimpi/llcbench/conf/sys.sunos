@@ -1,0 +1,43 @@
+# Solaris  sys.def
+# Please change the following:
+
+# Blasbench values
+
+# Use one of these!
+#-xarch=v7
+#-xarch=v8
+#-xarch=v8a
+#-xarch=v8plus
+#COMPPATH 	= /usr/local/SUNWspro/bin/f77
+COMPPATH 	= /opt/SUNWspro/bin/
+BB_CC		= $(COMPPATH)/cc
+BB_F77		= $(COMPPATH)/f77
+BB_CFLAGS	= -fast -dalign -DREGISTER -xarch=v8plusa
+BB_LDFLAGS =	 -xarch=v8plusa
+BLASLIB 	= /src/icl/LAPACK_LIBS/blas_SUN4SOL2.a
+VBLASLIB = 
+BB_LIBS		= -xlic_lib=sunperf 
+#BB_UNAME	= uname -m
+
+# Cachebench values
+
+CB_CC	= cc
+CB_F77	= f77
+CB_CFLAGS	= -fast -dalign -DREGISTER
+CB_LIBS	= 
+#CB_PROCNAME	= uname -m
+
+# MPBench values
+
+MP_CC		= cc  
+MP_MPI_CC	= $(CC)
+MP_CFLAGS	= -fast
+
+MPICH_ROOT	= /src/icl/MPI/mpich
+MPI_INC		= -I$(MPICH_ROOT)/include
+MPI_LIBS	= -L$(MPICH_ROOT)/lib/solaris/ch_p4 -lmpi -lsocket -lnsl
+MPIRUNCMD	= mpirun
+MPIRUNOPTS	=  
+MPIRUNPROCS	= -np
+MPIHOSTFILE	= -machinefile
+MPIRUNPOSTOPTS	= mpi_bench
